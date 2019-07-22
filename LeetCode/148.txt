@@ -1,0 +1,56 @@
+LeetCode-148-Sort List
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode sortList(ListNode head) 
+    {
+         if(head==null||head.next==null)
+         {
+             return head;
+         }
+          ListNode pre = null;
+          ListNode small = head;
+          ListNode big = head;
+        
+          while(big!=null && big.next!=null){
+              pre = small;
+              small = small.next;
+              big = big.next.next;
+          }
+          pre.next = null;
+        
+          ListNode l1 = sortList(head);
+          ListNode l2 = sortList(small);
+          return merge(l1,l2);
+             
+    }
+    
+    public ListNode merge(ListNode headA, ListNode headB){
+        ListNode dummy = new ListNode(0);
+        ListNode pre = dummy;
+        while(headA!=null && headB!=null){
+            if(headA.val<headB.val){
+                pre.next = headA;
+                headA = headA.next;
+            }
+            else{
+                pre.next = headB;
+                headB = headB.next;
+            }
+            pre = pre.next;
+        }
+        if(headA!=null){
+            pre.next = headA;
+        }
+        if(headB!=null){
+            pre.next = headB;
+        }
+        return dummy.next;
+    }
+}

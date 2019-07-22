@@ -1,0 +1,69 @@
+LeetCode-160-Intersection of Two Linked Lists
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public int length(ListNode head)
+    {
+        int i=0;
+        ListNode first = head;
+        while(first!=null){
+            i++;
+            first = first.next;
+        }
+        return i;
+    }
+    
+    public ListNode equal(ListNode pa,ListNode pb){
+        while(pa!=null)
+        {
+           if(pa==pb){
+               return pa;
+           }else{
+               pa=pa.next;
+               pb=pb.next;
+           }
+
+        }
+        return null;
+    }
+    
+    
+    
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) 
+    {
+        ListNode pa = headA;
+        ListNode pb = headB;
+        
+        int lengthA = length(headA);
+        int lengthB = length(headB);
+        int diff = lengthA-lengthB;
+        
+        if(pa==null || pb==null){
+            return null;
+        }
+        if(diff==0){
+            return equal(headA,headB);
+        }else if(diff>0){
+            for(int i=0;i<diff;i++){
+                pa=pa.next;
+            }
+            return equal(pa,pb);
+        }else if(diff<0){
+            for(int i=0;i<(0-diff);i++){
+                pb=pb.next;
+            }
+            return equal(pa,pb);
+        }else{
+            return null;
+        }
+    }
+}

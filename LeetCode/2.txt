@@ -1,0 +1,35 @@
+LeetCode-2-Add Two Numbers
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode cur = dummy;
+        ListNode p = l1;
+        ListNode q = l2;
+        int sum = 0;
+        while (p != null || q != null){
+            if(p != null){
+                sum = sum + p.val;
+                p = p.next;
+            }
+            if(q != null){
+                sum = sum + q.val;
+                q = q.next;
+            }
+            cur.next  = new ListNode(sum%10);
+            sum  = sum/10;
+            cur = cur.next;
+        }
+        if(sum==1){
+            cur.next = new ListNode(1);
+        }
+        return dummy.next;
+    }
+}

@@ -1,0 +1,32 @@
+LeetCode-203-Remove Linked List Elements 
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+// set a dummy Node and let dummy.next = head;
+class Solution {
+    public ListNode removeElements(ListNode head, int val) 
+	{
+        ListNode dummy = new ListNode(0);
+		dummy.next = head;
+		ListNode pre = dummy;
+		ListNode current = head;
+		
+		while(current != null)
+		{
+			if(current.val == val)
+			{
+			    current = current.next;
+				pre.next = current;
+			}else{
+				pre = current;
+				current = current.next;
+			}
+		}
+		return dummy.next;
+    }
+}

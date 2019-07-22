@@ -1,0 +1,45 @@
+LeetCode-61-Rotate List
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int length(ListNode head){
+        int n  = 0;
+        ListNode cur = head;
+        while(cur!=null){
+            n++;
+            cur = cur.next;
+        }
+        return n;
+    }
+    public ListNode rotateRight(ListNode head, int k) 
+    {
+        ListNode fast = head;
+        ListNode slow = head;
+        if(head==null||head.next==null||k==0){
+            return head;
+        }
+        int m =length(head);
+        if(k%m==0){
+            return head;
+        }
+        k=k%m;
+        for(int i = 0;i<k;i++){
+            fast = fast.next;
+        }
+        while(fast.next!=null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = slow.next;
+        fast.next = head;
+        slow.next = null;
+        return dummy.next;
+    }
+}

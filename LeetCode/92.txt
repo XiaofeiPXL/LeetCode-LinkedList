@@ -1,0 +1,38 @@
+LeetCode-92-Reverse Linked List II
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pre = dummy;
+        
+        if(m==n || head == null || head.next == null){
+            return head;
+        }
+        for(int i=0;i<m-1;i++){
+            pre = pre.next;
+        }
+        ListNode p = null;
+        ListNode save = pre.next;
+        ListNode cur = pre.next;
+        
+        for(int i=0;i<=n-m;i++){
+            ListNode nex = cur.next;
+            cur.next = p;
+            p = cur;
+            cur = nex;
+        }
+        
+        pre.next = p;
+        save.next = cur;
+        
+        return dummy.next;
+    }
+}
